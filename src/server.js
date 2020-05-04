@@ -7,6 +7,7 @@ import { connect } from './utils/db'
 import userRouter from './resources/user/user.router'
 import itemRouter from './resources/item/item.router'
 import listRouter from './resources/list/list.router'
+import { signin, signup, protect } from './utils/auth'
 
 export const app = express()
 
@@ -16,6 +17,13 @@ app.use(cors()) // make server cors enabled, bascially allows api to be used by 
 app.use(json()) // serialize json for js obj
 app.use(urlencoded({ extended: true })) // allows paramters to url
 app.use(morgan('dev')) // does logging, time it takes
+
+// added for user signup signin
+app.post('/singup', signup)
+app.post('/singup', signin)
+
+// ensure protect is run for all the /api
+app.use('/api/', protect)
 
 app.use('/api/user', userRouter)
 app.use('/api/item', itemRouter)
