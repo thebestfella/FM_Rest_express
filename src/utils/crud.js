@@ -1,4 +1,4 @@
-//needs to pass model as the crud will be universal
+// needs to pass model as the crud will be universal
 export const getOne = model => async (req, res) => {
   // const id = req.params.id
   // const user = req.params._id
@@ -15,7 +15,7 @@ export const getOne = model => async (req, res) => {
     _id: req.params.id
   })
   if (!doc) {
-    return res.status(400).end()
+    return res.status(404).end()
   }
   res.status(200).json({ data: doc })
 }
@@ -28,7 +28,7 @@ export const getMany = model => async (req, res) => {
   res.status(200).json({ data: doc })
 }
 
-//create (post request) should be 201
+// create (post request) should be 201
 export const createOne = model => async (req, res) => {
   const doc = await model.create({ ...req.body, createdBy: req.user._id })
   if (!doc) {
